@@ -47,8 +47,6 @@ username = st.text_input("Enter Twitter username:")
 if st.button("Generate Report") and username != "":
     with st.spinner("Generating report..."):
         response = requests.get(f"{fastapi_url}/brand-image-report/{username}")
-        time.sleep(3)
-        st.subheader(f"Brand Image Report for {username}:")
         st.write(response.json()["response"])
 
 
@@ -63,6 +61,4 @@ if st.button("Ask") and query != "":
     with st.spinner("Fetching product evaluation..."):
         json={"query": f"{query}"}
         response = requests.post(f"{fastapi_url}/vector-search/",json=json)
-        time.sleep(3)
-        st.subheader(f"Product evaluation for '{query}':")
         st.write(response.json()["response"])
