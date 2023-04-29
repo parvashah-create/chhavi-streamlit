@@ -3,7 +3,7 @@ import requests
 
 
 
-fastapi_url = "http://127.0.0.1:8000"
+fastapi_url = "http://54.86.128.1:9000"
 
 st.title("ChhaviAI")
 
