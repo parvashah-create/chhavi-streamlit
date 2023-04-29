@@ -10,7 +10,7 @@ st.title("ChhaviAI")
 username = st.text_input("Enter twitter username")
 if st.button("Generate Report"):
     response = requests.get(f"{fastapi_url}/brand-image-report/{username}")
-    st.write(response)
+    st.write(response.json())
 
 
 
