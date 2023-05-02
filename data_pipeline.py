@@ -27,7 +27,7 @@ def pipeline(username="@Meta"):
         if i["id"] not in db_id_list:
             text = preprocess_tweet(i["text"])
             sentiment_label = vader_sentiment(text)
-            embed = embeds.openai_embeddings(text)
+            embed = embeds.mpnet_embeddings(text)
             vectors.append({'id':i["id"], 'values':embed, 'metadata':{'created_at': i["created_at"],'impression_count':i["public_metrics"]["impression_count"],'like_count':i["public_metrics"]["like_count"],'sentiment_label':sentiment_label}})
             latest_tweets.append((i["id"],i["author_id"],username,text, i["public_metrics"]["impression_count"],i["public_metrics"]["like_count"],sentiment_label,i["created_at"]))
     

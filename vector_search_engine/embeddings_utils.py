@@ -1,7 +1,7 @@
 import openai 
 from decouple import config
 import time
-# from sentence_transformers import SentenceTransformer
+from sentence_transformers import SentenceTransformer
 
 
 
