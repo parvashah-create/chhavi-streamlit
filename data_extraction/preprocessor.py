@@ -1,6 +1,10 @@
-from textblob import TextBlob
 import re
 import emoji
+import nltk
+nltk.download('stopwords')
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
 
 def preprocess_tweet(tweet):
     """
@@ -31,13 +35,15 @@ def preprocess_tweet(tweet):
     tweet = tweet.lower()
     
     # Tokenize the tweet into words
-    words = TextBlob(tweet).words
+    words = word_tokenize(tweet)
     
     # Remove stop words
-    words = [word for word in words if not word in TextBlob(' '.join(TextBlob('').stopwords)).words]
+    stop_words = set(stopwords.words('english'))
+    words = [word for word in words if not word in stop_words]
     
     # Lemmatize words
-    words = [word.lemmatize() for word in words]
+    lemmatizer = WordNetLemmatizer()
+    words = [lemmatizer.lemmatize(word) for word in words]
     
     # Join the words back into a string
     preprocessed_tweet = " ".join(words)
