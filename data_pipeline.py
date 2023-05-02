@@ -1,7 +1,7 @@
 from data_extraction.tweepy import TwitterUtils
 from database_utils.db_utils import DbUtils
 from data_extraction.preprocessor import preprocess_tweet
-from sentimental_analysis.model_utils import SentimentAnalyzer
+from sentimental_analysis.model_utils import textblob_sentiment
 from vector_search_engine.embeddings_utils import EmbeddingsUtil
 from vector_search_engine.pinecone_utils import PineconeUtils
 from decouple import config
@@ -11,7 +11,6 @@ import sqlite3
 
 twitter_scrapper = TwitterUtils(config("TWITTER_BEARER_TOKEN"))
 db_utils = DbUtils("tweet.db")
-senti_model = SentimentAnalyzer()
 embeds = EmbeddingsUtil()
 pinecone_utils = PineconeUtils(config("PINECONE_API_KEY"),config("PINECONE_ENV"))
 
@@ -27,7 +26,7 @@ def pipeline(username="@Meta"):
     for i in res_json["data"]:
         if i["id"] not in db_id_list:
             text = preprocess_tweet(i["text"])
-            sentiment_label = senti_model.vader_sentiment(text)
+            sentiment_label = textblob_sentiment(text)
             embed = embeds.mpnet_embeddings(text)
             vectors.append({'id':i["id"], 'values':embed, 'metadata':{'created_at': i["created_at"],'impression_count':i["public_metrics"]["impression_count"],'like_count':i["public_metrics"]["like_count"],'sentiment_label':sentiment_label}})
             latest_tweets.append((i["id"],i["author_id"],username,text, i["public_metrics"]["impression_count"],i["public_metrics"]["like_count"],sentiment_label,i["created_at"]))

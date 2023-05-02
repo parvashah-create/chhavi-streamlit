@@ -1,11 +1,6 @@
-import spacy
+from textblob import TextBlob
 import re
 import emoji
-
-# Load the spaCy model
-nlp = spacy.load('en_core_web_sm')
-
-
 
 def preprocess_tweet(tweet):
     """
@@ -36,14 +31,13 @@ def preprocess_tweet(tweet):
     tweet = tweet.lower()
     
     # Tokenize the tweet into words
-    doc = nlp(tweet)
-    words = [token.text for token in doc]
+    words = TextBlob(tweet).words
     
     # Remove stop words
-    words = [word for word in words if not nlp.vocab[word].is_stop]
+    words = [word for word in words if not word in TextBlob(' '.join(TextBlob('').stopwords)).words]
     
     # Lemmatize words
-    words = [token.lemma_ for token in nlp(" ".join(words))]
+    words = [word.lemmatize() for word in words]
     
     # Join the words back into a string
     preprocessed_tweet = " ".join(words)
