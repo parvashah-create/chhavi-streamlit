@@ -1,7 +1,7 @@
 import re
 import emoji
 import nltk
-nltk.download('stopwords')
+
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
@@ -22,7 +22,7 @@ def preprocess_tweet(tweet):
     Returns:
     preprocessed_tweet (str): The preprocessed tweet
     """
-    
+    nltk.download('stopwords')
     # Remove URLs and mentions
     tweet = re.sub(r"http\S+|www\S+|https\S+|@\S+", "", tweet)
     
