@@ -50,4 +50,3 @@ def preprocess_tweet(tweet):
     preprocessed_tweet = " ".join(words)
     
     return preprocessed_tweet
-print(preprocess_tweet("This is great day"))
