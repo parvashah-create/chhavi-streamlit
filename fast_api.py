@@ -1,7 +1,3 @@
-from typing import Union
-from fastapi_utils.tasks import repeat_every
-from fastapi import FastAPI
-from pydantic import BaseModel
 from data_pipeline import pipeline
 from database_utils.db_utils import DbUtils
 from prompt.openai_utils import create_prompt, generate_response, generative_search

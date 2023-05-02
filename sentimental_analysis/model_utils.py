@@ -1,7 +1,6 @@
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 
-
 class SentimentAnalyzer:
     
     def __init__(self):
