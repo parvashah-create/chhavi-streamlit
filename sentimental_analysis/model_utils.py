@@ -1,17 +1,14 @@
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+from textblob import TextBlob
 
 
-class SentimentAnalyzer:
-    
-    def __init__(self):
-        self.vader_model = SentimentIntensityAnalyzer()
-       
-    def vader_sentiment(self, text):
-        sentiment = self.vader_model.polarity_scores(text)
-        # Remove the 'compound' key from the dictionary
-        del sentiment['compound']
-        # Get the key with the maximum value
-        label = max(sentiment, key=sentiment.get)
-        return label
 
-
+def textblob_sentiment(self, text):
+    blob = TextBlob(text)
+    sentiment = blob.sentiment.polarity
+    if sentiment < 0:
+        label = 'neg'
+    elif sentiment == 0:
+        label = 'neu'
+    elif sentiment > 0:
+        label = 'pos'
+    return label 
