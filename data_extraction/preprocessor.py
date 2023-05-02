@@ -1,6 +1,8 @@
 import re
 import emoji
 import nltk
+nltk.download('punkt')
+nltk.download('stopwords')
 
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
@@ -22,7 +24,6 @@ def preprocess_tweet(tweet):
     Returns:
     preprocessed_tweet (str): The preprocessed tweet
     """
-    nltk.download('stopwords')
     # Remove URLs and mentions
     tweet = re.sub(r"http\S+|www\S+|https\S+|@\S+", "", tweet)
     
@@ -49,3 +50,4 @@ def preprocess_tweet(tweet):
     preprocessed_tweet = " ".join(words)
     
     return preprocessed_tweet
+print(preprocess_tweet("This is great day"))
