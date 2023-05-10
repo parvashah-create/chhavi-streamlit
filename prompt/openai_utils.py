@@ -25,8 +25,8 @@ def create_prompt(text):
     return prompt
     
 
-def generate_response(prompt):
-    openai.api_key = config("OPENAI_API_KEY")
+def generate_response(prompt,openai_key):
+    openai.api_key = openai_key
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
@@ -37,11 +37,11 @@ def generate_response(prompt):
     response = completion.choices[0].message
     return response["content"]
 
-def generative_search(query):
+def generative_search(query, openai_key):
     query_embeds = embeds_utils.mpnet_embeddings(query)
     vec_search = pinecone_utils.search_index("chhavi-ai",10,query_embeds.tolist())
     search_ids = [x['id'] for x in vec_search['matches']]
     context = db_utils.get_id_text("tweets",tuple(search_ids))
     prompt = f"{context}" + f"\n Analyze the tweets and their sentiments above and give a image report about this product {query}"
-    response = generate_response(prompt)
+    response = generate_response(prompt, openai_key)
     return response

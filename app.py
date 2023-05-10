@@ -13,13 +13,14 @@ st.title(":robot_face: ChhaviAI")
 # Brand Image Report Section
 st.header("Brand Image Report")
 
+openai_key = st.text_input("Enter OpenAI Key:")
 # User input for Twitter username
 username = st.text_input("Enter Twitter username:")
 
 # Generate report button
 if st.button("Generate Report") and username != "":
     with st.spinner("Generating report..."):
-        response = brand_image_report(username)
+        response = brand_image_report(username, openai_key)
         st.write(response.json()["response"])
 
 
@@ -33,5 +34,5 @@ query = st.text_input("Enter a product query:")
 if st.button("Ask") and query != "":
     with st.spinner("Fetching product evaluation..."):
         json={"query": f"{query}"}
-        response = vector_search(query)
+        response = vector_search(query, openai_key)
         st.write(response.json()["response"])
