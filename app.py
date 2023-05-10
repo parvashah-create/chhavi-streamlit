@@ -21,7 +21,7 @@ username = st.text_input("Enter Twitter username:")
 if st.button("Generate Report") and username != "":
     with st.spinner("Generating report..."):
         response = brand_image_report(username, openai_key)
-        st.write(response)
+        st.write(response["response"])
 
 
 # Product Evaluation Section
@@ -35,4 +35,4 @@ if st.button("Ask") and query != "":
     with st.spinner("Fetching product evaluation..."):
         json={"query": f"{query}"}
         response = vector_search(query, openai_key)
-        st.write(response.json()["response"])
+        st.write(response["response"])
