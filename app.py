@@ -21,7 +21,7 @@ username = st.text_input("Enter Twitter username:")
 if st.button("Generate Report") and username != "":
     with st.spinner("Generating report..."):
         response = brand_image_report(username, openai_key)
-        st.write(response.json()["response"])
+        st.write(response.json())
 
 
 # Product Evaluation Section
