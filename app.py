@@ -7,13 +7,16 @@ from fast_api import brand_image_report, vector_search
 # Set page title and favicon
 st.set_page_config(page_title="ChhaviAI", page_icon=":robot_face:")
 
+
 # Set page header
 st.title(":robot_face: ChhaviAI")
+
+
+openai_key = st.text_input("Enter OpenAI Key:")
 
 # Brand Image Report Section
 st.header("Brand Image Report")
 
-openai_key = st.text_input("Enter OpenAI Key:")
 # User input for Twitter username
 username = st.text_input("Enter Twitter username:")
 
