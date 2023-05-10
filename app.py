@@ -19,10 +19,12 @@ username = st.text_input("Enter Twitter username:")
 
 # Generate report button
 if st.button("Generate Report") and username != "":
-    with st.spinner("Generating report..."):
-        response = brand_image_report(username, openai_key)
-        st.write(response["response"])
-
+    try:
+        with st.spinner("Generating report..."):
+            response = brand_image_report(username, openai_key)
+            st.write(response["response"])
+    except Exception as e:
+        st.error("Error occurred during report generation. Please check your OpenAI key and try again.")
 
 # Product Evaluation Section
 st.header("Product Evaluation")
@@ -32,7 +34,9 @@ query = st.text_input("Enter a product query:")
 
 # Ask button
 if st.button("Ask") and query != "":
-    with st.spinner("Fetching product evaluation..."):
-        json={"query": f"{query}"}
-        response = vector_search(query, openai_key)
-        st.write(response["response"])
+    try:
+        with st.spinner("Fetching product evaluation..."):
+            response = vector_search(query, openai_key)
+            st.write(response["response"])
+    except Exception as e:
+        st.error("Error occurred during product evaluation. Please check your OpenAI key and try again.")
